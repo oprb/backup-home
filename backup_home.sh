@@ -40,13 +40,13 @@ then
     notify-send --urgency=normal --expire-time=5000 \
                 "Backup" "$BACKUP_SOURCE has been backed up successfully."
   else
-    echo "Error(s) occured while backing up!"
+    echo "Error(s) occured while backing up!" >&2
     notify-send --urgency=critical --expire-time=5000 \
                 "Backup" "Error(s) occured while backing up!"
     exit 1
   fi
 else
-  echo "No backup is performed since the backup device is not mounted."
+  echo "No backup is performed since the backup device is not mounted." >&2
   notify-send --urgency=critical --expire-time=5000 \
               "Backup" "Backup device is not connected. Could not backup!"
   exit 1
