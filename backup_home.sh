@@ -10,9 +10,14 @@ RDIFF_EXCLUDE_LIST="/home/${USER}/rdiff_backup_list"
 
 SLEEP_DURATION="2m"
 
+echo "Backup will start in ${SLEEP_DURATION}. Make sure the backup device is connected."
 # show a reminder that a backup will happen soon
 notify-send --urgency=critical --expire-time=5000 \
             "Backup" "Backup will start soon. Make sure the backup device is connected."
+
+echo "$BACKUP_SOURCE will be backed up to ${BACKUP_DESTINATION}."
+echo "The following items will be excluded from the backup:"
+cat $RDIFF_EXCLUDE_LIST
 
 sleep $SLEEP_DURATION
 
@@ -20,10 +25,6 @@ sleep $SLEEP_DURATION
 if [ "$(findmnt --raw --noheadings $BACKUP_DEVICE $MOUNTPOINT | cut --delimiter=' ' --fields=1,2)" \
      = "$MOUNTPOINT $BACKUP_DEVICE" ]
 then
-  echo "Backing up $BACKUP_SOURCE to $BACKUP_DESTINATION"
-  echo "The following items will be excluded from the backup:"
-  cat $RDIFF_EXCLUDE_LIST
-
   if [ ! -d $BACKUP_DESTINATION ]
   then
     echo "Backup destination was not found. $BACKUP_DESTINATION will be created."
@@ -37,19 +38,20 @@ then
   if [ "$?" = "0" ]
   then
     echo "$BACKUP_SOURCE has been backed up successfully."
-    notify-send --urgency=normal --expire-time=5000 \
-                "Backup" "$BACKUP_SOURCE has been backed up successfully."
   else
-    echo "Error(s) occured while backing up!" >&2
+    echo "Error(s) occured while backing up $BACKUP_SOURCE to ${BACKUP_DESTINATION}!" >&2
     notify-send --urgency=critical --expire-time=5000 \
                 "Backup" "Error(s) occured while backing up!"
     exit 1
   fi
 else
-  echo "No backup is performed since the backup device is not mounted." >&2
+  echo "No backup is performed since $MOUNTPOINT is not mounted." >&2
   notify-send --urgency=critical --expire-time=5000 \
               "Backup" "Backup device is not connected. Could not backup!"
   exit 1
 fi
 
+echo "Backup finished."
+notify-send --urgency=normal --expire-time=5000 \
+            "Backup" "Backup has been finished."
 exit 0
