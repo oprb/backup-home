@@ -39,13 +39,13 @@ then
   then
     echo "$BACKUP_SOURCE has been backed up successfully."
   else
-    echo "Error(s) occured while backing up $BACKUP_SOURCE to ${BACKUP_DESTINATION}!" >&2
+    echo "ERROR: Error(s) occured while backing up $BACKUP_SOURCE to ${BACKUP_DESTINATION}!" >&2
     notify-send --urgency=critical --expire-time=5000 \
                 "Backup" "Error(s) occured while backing up!"
     exit 1
   fi
 else
-  echo "No backup is performed since $MOUNTPOINT is not mounted." >&2
+  echo "ERROR: No backup is performed since $MOUNTPOINT is not mounted." >&2
   notify-send --urgency=critical --expire-time=5000 \
               "Backup" "Backup device is not connected. Could not backup!"
   exit 1
