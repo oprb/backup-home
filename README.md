@@ -28,7 +28,7 @@ the following, assuming the script is in `/home/you/bin`:
 
 Then insert the following as one (!) line to add your daily backup job:
 
-`30 16 * * * XDG_RUNTIME_DIR=/run/user/$(id -u) /home/nano/bin/backup_home.sh 2>&1
+`30 16 * * * XDG_RUNTIME_DIR=/run/user/$(id -u) /home/you/bin/backup_home.sh 2>&1
  | ts >> /home/you/backup_home.log`
 
 Explanation:
