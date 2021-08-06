@@ -17,6 +17,8 @@ If the backup was successful, another notification will be shown.
 
 ## Usage
 
+Before the first usage, edit the script and set `BACKUP_DEVICE` and `MOUNTPOINT` correctly for your
+user.
 The script can either be directly started from the shell by simply typing or be used in a cronjob.
 No arguments are expected. It will simply backup the currents user's home directory.
 If you want to get reminded by cron to perform a daily backup at 4:30 pm each day, you could do
