@@ -1,4 +1,4 @@
-# Backup Solution
+# Backup Home
 
 The script provides a simple backup solution for the user's home directory wrapping *rdiff-backup*.
 It expects a file *~/rdiff_backup_list*, all items in there will be excluded from the backup.
